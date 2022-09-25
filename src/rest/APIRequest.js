@@ -35,10 +35,10 @@ class APIRequest {
   }
 
   make() {
-    agent ??=
-      typeof this.client.options.proxy === 'string' && this.client.options.proxy.length > 0
-        ? new proxy(this.client.options.proxy)
-        : new https.Agent({ ...this.client.options.http.agent, keepAlive: true });
+    agent ??= this.options?.agent;
+      // typeof this.client.options.proxy === 'string' && this.client.options.proxy.length > 0
+      //  ? new proxy(this.client.options.proxy)
+      //  : new https.Agent({ ...this.client.options.http.agent, keepAlive: true });
 
     const API =
       this.options.versioned === false
