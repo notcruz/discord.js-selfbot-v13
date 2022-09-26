@@ -35,7 +35,7 @@ class APIRequest {
   }
 
   make() {
-    agent ??= new proxy(this.options.proxy);
+    agent ??= this.options.agent;
       // typeof this.client.options.proxy === 'string' && this.client.options.proxy.length > 0
       //  ? new proxy(this.client.options.proxy)
       //  : new https.Agent({ ...this.client.options.http.agent, keepAlive: true });
