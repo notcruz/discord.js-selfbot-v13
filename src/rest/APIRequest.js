@@ -5,8 +5,8 @@ const https = require('node:https');
 const { setTimeout } = require('node:timers');
 const FormData = require('form-data');
 const JSONBig = require('json-bigint');
-const fetch = require('node-fetch');
 const proxy = require('proxy-agent');
+const { fetch } = require('undici');
 
 let agent = null;
 
@@ -105,7 +105,6 @@ class APIRequest {
       body.append('payload_json', JSON.stringify(this.options.body));
       headers = Object.assign(headers, body.getHeaders());
     }
-
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), this.client.options.restRequestTimeout).unref();
     return fetch(url, {
@@ -114,6 +113,7 @@ class APIRequest {
       agent,
       body,
       signal: controller.signal,
+      timeout: this.client.options.restRequestTimeout
     }).finally(() => clearTimeout(timeout));
   }
 }
