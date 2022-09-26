@@ -200,7 +200,7 @@ class Webhook {
       query: { thread_id: messagePayload.options.threadId, wait: true },
       auth: false,
       versioned: true,
-      proxy: options.proxy
+      agent: options.agent
     });
     return this.client.channels?.cache.get(d.channel_id)?.messages._add(d, false) ?? d;
   }
